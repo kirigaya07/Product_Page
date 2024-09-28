@@ -39,7 +39,7 @@ export const ProductDetail = () => {
           <div className="relative flex items-center justify-center w-full lg:w-1/2">
             <img
               className="w-full h-auto rounded-lg"
-              src={images}
+              src={images[0]}
               alt={title}
             />
           </div>
