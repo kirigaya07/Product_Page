@@ -23,3 +23,5 @@ export default function App() {
 
 // Note: A product details page has also been implemented, which provides more information about
 // individual products when clicked, utilizing dynamic routing for displaying specific product data.
+
+//Also when come back from the product detail page then again data fetching will occur which makes page reloading again.
