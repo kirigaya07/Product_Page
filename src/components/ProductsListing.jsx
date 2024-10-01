@@ -28,7 +28,7 @@ export const ProductsListing = () => {
     } else if (category) {
       url = `https://dummyjson.com/products/category/${category}`; // Fetch products by category
     } else {
-      url = "https://dummyjson.com/products?limit=100"; // Fetch all products if no category or search query is specified
+      url = "https://dummyjson.com/products?limit=100"; // Fetch all products if no category or search query is specified upto 100 products
     }
 
     const response = await fetch(url)
