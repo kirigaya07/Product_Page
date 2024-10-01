@@ -8,6 +8,7 @@ export const ProductsListing = () => {
   const dispatch = useDispatch();
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [searchQuery, setSearchQuery] = useState(""); // Search query state
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 10; // Number of products per page
@@ -19,10 +20,16 @@ export const ProductsListing = () => {
     setCategories(response);
   };
 
-  const fetchProducts = async (category) => {
-    const url = category
-      ? `https://dummyjson.com/products/category/${category}`
-      : "https://dummyjson.com/products"; // Fetch all products if no category is selected
+  const fetchProducts = async (category = "", query = "") => {
+    let url = "";
+
+    if (query) {
+      url = `https://dummyjson.com/products/search?q=${query}`; // Fetch products by search query
+    } else if (category) {
+      url = `https://dummyjson.com/products/category/${category}`; // Fetch products by category
+    } else {
+      url = "https://dummyjson.com/products?limit=100"; // Fetch all products if no category or search query is specified
+    }
 
     const response = await fetch(url)
       .then((res) => res.json())
@@ -37,12 +44,17 @@ export const ProductsListing = () => {
   }, []);
 
   useEffect(() => {
-    fetchProducts(selectedCategory); // Fetch products based on the selected category
-  }, [selectedCategory]); // Re-fetch products when the selected category changes
+    fetchProducts(selectedCategory, searchQuery); // Fetch products based on the selected category or search
+    setCurrentPage(1); // Reset to first page when category or search changes
+  }, [selectedCategory, searchQuery]);
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category === selectedCategory ? "" : category); // Deselect if clicked again
-    setCurrentPage(1); // Reset to first page when category changes
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    fetchProducts("", searchQuery); // Fetch products based on search query
   };
 
   const toggleDropdown = () => {
@@ -97,10 +109,27 @@ export const ProductsListing = () => {
         </div>
       </aside>
 
+      {/* Search Bar */}
+      <form onSubmit={handleSearch} className="w-full mb-4">
+        <input
+          type="text"
+          placeholder="Search products..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="p-2 border border-gray-300 rounded w-full"
+        />
+        <button
+          type="submit"
+          className="bg-blue-500 text-white px-4 py-2 rounded mt-2 w-full"
+        >
+          Search
+        </button>
+      </form>
+
       <main className="w-full p-4">
         <h1 className="text-3xl mb-4 text-center">Products</h1>
-        <ProductComponent products={currentProducts} />
-
+        <ProductComponent products={currentProducts} />{" "}
+        {/* Display current page's products */}
         {/* Pagination Controls */}
         <div className="flex justify-center mt-4">
           <button

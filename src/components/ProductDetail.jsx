@@ -36,13 +36,16 @@ export const ProductDetail = () => {
         <div>Loading...</div>
       ) : (
         <div className="flex flex-col lg:flex-row bg-gray-100 p-6 rounded-lg shadow-md">
+          {/* Image Section */}
           <div className="relative flex items-center justify-center w-full lg:w-1/2">
             <img
-              className="w-full h-auto rounded-lg"
+              className="w-full h-auto max-h-97 object-contain rounded-lg" // Set max height and object-contain
               src={images[0]}
               alt={title}
             />
           </div>
+
+          {/* Product Info Section */}
           <div className="flex flex-col justify-center w-full lg:w-1/2 mt-6 lg:mt-0 lg:ml-6">
             <h1 className="text-4xl font-bold text-gray-800 mb-4">{title}</h1>
             <h2 className="text-3xl text-teal-600 font-semibold mb-2">

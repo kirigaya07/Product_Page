@@ -7,7 +7,7 @@ export const ProductComponent = ({ products }) => {
       {products.map((product) => (
         <div
           key={product.id}
-          className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+          className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-2xl dark:bg-gray-800 dark:border-gray-700"
         >
           <Link to={`/product/${product.id}`}>
             <img
@@ -17,15 +17,18 @@ export const ProductComponent = ({ products }) => {
             />
           </Link>
           <div className="p-5">
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+            <h5 className="mb-2 text-2xl font-extrabold text-gray-900 dark:text-white">
               {product.title}
             </h5>
-            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              $ {product.price}
+            <p className="text-xl font-semibold text-teal-500 mb-2">
+              ${product.price}
+            </p>
+            <p className="text-sm font-light text-gray-600 dark:text-gray-400 mb-4">
+              {product.description.slice(0, 50)}...
             </p>
             <Link
               to={`/category/${product.category}`}
-              className="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="inline-block bg-gradient-to-r from-teal-400 to-blue-500 text-white text-sm font-medium px-4 py-2 rounded-lg shadow-md hover:from-teal-500 hover:to-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 transition-colors"
             >
               {product.category}
             </Link>
